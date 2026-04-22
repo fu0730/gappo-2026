@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAPPO 2026 新勧説明会</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;700;800&display=swap');
+
+  :root {
+    --sky: #38bdf8;
+    --sky-dark: #0ea5e9;
+    --cyan: #06b6d4;
+    --cyan-light: #67e8f9;
+    --blue: #3b82f6;
+    --indigo: #6366f1;
+    --bg: #f0f9ff;
+    --card: rgba(255,255,255,0.85);
+    --card-solid: #ffffff;
+    --text: #0f172a;
+    --sub: #475569;
+    --light: #94a3b8;
+    --coral: #fb7185;
+    --mint: #34d399;
+    --glass: rgba(255,255,255,0.6);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Outfit', sans-serif;
+    background: #0f172a;
+    overflow: hidden;
+  }
+
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0; left: 0;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* ===== SLIDE 1: 待機 ===== */
+  .s1 {
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 40%, #ecfeff 70%, #e0f2fe 100%);
+    justify-content: center;
+    align-items: center;
+  }
+  .s1::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(56,189,248,0.15), transparent 70%);
+    top: -100px; right: -100px;
+    border-radius: 50%;
+  }
+  .s1::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(6,182,212,0.12), transparent 70%);
+    bottom: -80px; left: -80px;
+    border-radius: 50%;
+  }
+  .s1 .card {
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(56,189,248,0.2);
+    border-radius: 24px;
+    padding: 60px 80px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(56,189,248,0.1);
+    z-index: 1;
+  }
+  .s1 h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .s1 h1 span { color: var(--sky); }
+  .s1 .note {
+    margin-top: 24px;
+    font-size: 20px;
+    color: var(--sub);
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  .s1 .dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  .s1 .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--cyan-light);
+  }
+  .s1 .dot:nth-child(2) { background: var(--sky); }
+  .s1 .dot:nth-child(3) { background: var(--cyan); }
+
+  /* ===== SLIDE 2: タイトル ===== */
+  .s2 {
+    background: linear-gradient(160deg, #0ea5e9 0%, #38bdf8 30%, #06b6d4 60%, #0ea5e9 100%);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+  }
+  .s2::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%);
+    top: -200px; right: -150px;
+    border-radius: 50%;
+  }
+  .s2::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+    bottom: -150px; left: -100px;
+    border-radius: 50%;
+  }
+  .s2 .content { text-align: center; z-index: 1; }
+  .s2 .sub-title {
+    font-size: 24px;
+    font-weight: 600;
+    opacity: 0.9;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+  .s2 .logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 96px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.15);
+  }
+  .s2 .ruby {
+    font-size: 24px;
+    font-weight: 700;
+    opacity: 1;
+    letter-spacing: 4px;
+    margin-top: 12px;
+  }
+  .s2 .divider {
+    width: 60px;
+    height: 3px;
+    background: rgba(255,255,255,0.5);
+    margin: 28px auto;
+    border-radius: 2px;
+  }
+  .s2 .year {
+    font-size: 24px;
+    font-weight: 600;
+    opacity: 0.95;
+    letter-spacing: 2px;
+  }
+
+  /* ===== SLIDE 3: GAPPOとは ===== */
+  .s3 {
+    background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+    padding: 50px 60px;
+  }
+  .s3 .about-cards {
+    flex: 1;
+    align-items: center;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+  .section-header .bar {
+    width: 5px; height: 36px;
+    background: linear-gradient(180deg, var(--sky), var(--cyan));
+    border-radius: 3px;
+  }
+  .section-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-desc {
+    font-size: 20px;
+    color: var(--sub);
+    font-weight: 500;
+    margin-bottom: 24px;
+    padding-left: 19px;
+    line-height: 1.7;
+  }
+
+  /* about cards */
+  .about-cards {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+    width: 100%;
+  }
+  .about-card {
+    flex: 1;
+    background: var(--card-solid);
+    border-radius: 20px;
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(56,189,248,0.08);
+    border: 1px solid rgba(56,189,248,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+  }
+  .about-card .about-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: white;
+  }
+  .about-card:nth-child(1) .about-icon { background: linear-gradient(135deg, #38bdf8, #0ea5e9); }
+  .about-card:nth-child(2) .about-icon { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+  .about-card:nth-child(3) .about-icon { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+  .about-card .about-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .about-card .about-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--sub);
+    line-height: 1.7;
+  }
+  .about-card .about-text strong {
+    color: #0891d6;
+    font-weight: 700;
+  }
+
+
+  /* ===== SLIDE 4: 活動について ===== */
+  .s4 {
+    background: linear-gradient(180deg, #f0f9ff 0%, #fff 100%);
+    padding: 50px 60px;
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    flex: 1;
+    margin-top: 8px;
+  }
+  .activity-card {
+    background: var(--card-solid);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 4px 24px rgba(56,189,248,0.08);
+    border: 1px solid rgba(56,189,248,0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  .activity-card .tag {
+    display: inline-flex;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    width: fit-content;
+    margin-bottom: 14px;
+  }
+  .activity-card:nth-child(1) .tag { background: linear-gradient(135deg, #38bdf8, #0ea5e9); }
+  .activity-card:nth-child(2) .tag { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+  .activity-card .desc {
+    font-size: 19px;
+    color: var(--sub);
+    font-weight: 500;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .activity-card .photo-area {
+    flex: 1;
+    min-height: 160px;
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    font-size: 14px;
+  }
+
+  /* ===== SLIDE 5: 年間スケジュール ===== */
+  .s5 {
+    background: linear-gradient(180deg, #f0f9ff 0%, #fff 100%);
+    padding: 50px 60px;
+  }
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 30px;
+    flex: 1;
+    align-content: center;
+    margin-top: 8px;
+  }
+  .schedule-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+  }
+  .schedule-row .month {
+    min-width: 64px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    background: linear-gradient(135deg, var(--sky), var(--cyan));
+  }
+  .schedule-row:nth-child(even) .month {
+    background: linear-gradient(135deg, var(--cyan), var(--sky-dark));
+  }
+  .schedule-row .event {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    padding: 14px 18px;
+    background: rgba(56,189,248,0.06);
+    border-radius: 10px;
+    flex: 1;
+    border-left: 3px solid var(--sky);
+  }
+  .schedule-row:nth-child(even) .event {
+    border-left-color: var(--cyan);
+  }
+
+  /* ===== SLIDE 6: メンバー ===== */
+  .s6 {
+    background: linear-gradient(180deg, #f0f9ff 0%, #fff 100%);
+    padding: 50px 60px;
+  }
+  .member-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 60px;
+    padding: 0 20px;
+  }
+  .member-left {
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .member-left .num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 140px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #38bdf8, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .member-left .num .mei {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 48px;
+    -webkit-text-fill-color: var(--sub);
+    margin-left: 2px;
+  }
+  .member-left .num .sub-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    -webkit-text-fill-color: var(--sub);
+    margin-left: 2px;
+  }
+  .member-left .label {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--sub);
+    margin-top: 8px;
+  }
+  .dept-row .dept-count {
+    letter-spacing: 6px;
+  }
+  .dept-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 500px;
+    flex-shrink: 0;
+  }
+  .dept-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 28px;
+    background: var(--card-solid);
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(56,189,248,0.06);
+    border: 1px solid rgba(56,189,248,0.08);
+    border-left: 5px solid var(--sky);
+  }
+  .dept-row:nth-child(2) { border-left-color: #06b6d4; }
+  .dept-row:nth-child(3) { border-left-color: #3b82f6; }
+  .dept-row:nth-child(4) { border-left-color: #6366f1; }
+  .dept-row .dept-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .dept-row .dept-sub {
+    font-size: 18px;
+    color: var(--sub);
+    white-space: nowrap;
+    flex: 1;
+    text-align: left;
+  }
+  .dept-row .dept-count {
+    font-family: 'Outfit', sans-serif;
+    font-size: 38px;
+    margin-left: auto;
+    white-space: nowrap;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .dept-row:nth-child(1) .dept-count { color: #0ea5e9; }
+  .dept-row:nth-child(2) .dept-count { color: #06b6d4; }
+  .dept-row:nth-child(3) .dept-count { color: #3b82f6; }
+  .dept-row:nth-child(4) .dept-count { color: #6366f1; }
+  .dept-row .dept-unit {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--sub);
+  }
+
+  /* ===== SLIDE 7: 魅力 ===== */
+  .s7 {
+    background: linear-gradient(180deg, #f0f9ff 0%, #fff 100%);
+    padding: 50px 60px;
+  }
+  .merit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    justify-content: center;
+    width: 100%;
+  }
+  .merit-item {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 24px 32px;
+    background: var(--card-solid);
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(56,189,248,0.06);
+    border: 1px solid rgba(56,189,248,0.08);
+    border-left: 4px solid var(--sky);
+  }
+  .merit-item:nth-child(2) { border-left-color: #06b6d4; }
+  .merit-item:nth-child(3) { border-left-color: #3b82f6; }
+  .merit-item:nth-child(4) { border-left-color: #6366f1; }
+  .merit-item:nth-child(5) { border-left-color: #0ea5e9; }
+  .merit-item .num {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  .merit-item:nth-child(1) .num { background: linear-gradient(135deg, #38bdf8, #0ea5e9); }
+  .merit-item:nth-child(2) .num { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+  .merit-item:nth-child(3) .num { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+  .merit-item:nth-child(4) .num { background: linear-gradient(135deg, #6366f1, #818cf8); }
+  .merit-item:nth-child(5) .num { background: linear-gradient(135deg, #0ea5e9, #38bdf8); }
+  .merit-item:nth-child(6) { border-left-color: #06b6d4; }
+  .merit-item:nth-child(6) .num { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+  .merit-item .merit-text {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* ===== SLIDE 8: 入会方法 ===== */
+  .s8 {
+    background: linear-gradient(180deg, #f0f9ff 0%, #fff 100%);
+    padding: 50px 60px;
+  }
+  .s8 .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .deadline-badge {
+    padding: 10px 24px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--coral), #f472b6);
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    justify-content: center;
+  }
+  .step-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 28px;
+    background: var(--card-solid);
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(56,189,248,0.12);
+    border: 2px solid rgba(56,189,248,0.2);
+  }
+  .step-card.step1 { background: #f0f9ff; border-color: #38bdf8; }
+  .step-card.step2 { background: #ecfeff; border-color: #06b6d4; }
+  .step-card.step3 { background: #eff6ff; border-color: #3b82f6; }
+  .step-card .step-badge {
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+  }
+  .step-card.step1 .step-badge { background: linear-gradient(135deg, #38bdf8, #0ea5e9); }
+  .step-card.step2 .step-badge { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+  .step-card.step3 .step-badge { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+  .step-card .step-content h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .step-card .step-content p {
+    font-size: 18px;
+    color: var(--sub);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .step-arrow {
+    text-align: center;
+    color: var(--cyan-light);
+    font-size: 18px;
+    margin: -4px 0;
+  }
+
+  /* ===== SLIDE 9: ありがとう ===== */
+  .s9 {
+    background: linear-gradient(160deg, #0ea5e9 0%, #38bdf8 30%, #06b6d4 60%, #0ea5e9 100%);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+  }
+  .s9::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+    top: -150px; right: -100px;
+    border-radius: 50%;
+  }
+  .s9 .end-content {
+    text-align: center;
+    z-index: 1;
+  }
+  .s9 h1 {
+    font-size: 52px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .s9 .end-sub {
+    font-size: 26px;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-bottom: 40px;
+  }
+  .s9 .contact-card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 24px;
+    padding: 36px 56px;
+    display: inline-block;
+    text-align: left;
+  }
+  .s9 .contact-card h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .s9 .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 16px;
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .s9 .contact-label {
+    background: rgba(255,255,255,0.2);
+    padding: 8px 20px;
+    border-radius: 12px;
+    font-size: 19px;
+    font-weight: 700;
+    min-width: 130px;
+    text-align: center;
+  }
+  .s9 .qr-area {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    margin-top: 28px;
+  }
+  .s9 .qr-box {
+    width: 140px; height: 155px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    font-size: 12px;
+    padding: 10px;
+  }
+  .s9 .qr-box img {
+    width: 110px !important;
+    height: 110px !important;
+  }
+  .s9 .qr-box span {
+    margin-top: 6px;
+    color: var(--sub);
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  /* ===== ナビ ===== */
+  .nav {
+    position: fixed;
+    bottom: 20px;
+    right: 24px;
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+  }
+  .nav button {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--sky-dark);
+    transition: all 0.2s;
+  }
+  .nav button:hover {
+    background: var(--sky);
+    color: white;
+    transform: scale(1.1);
+  }
+  .slide-counter {
+    position: fixed;
+    bottom: 28px;
+    left: 24px;
+    font-size: 14px;
+    color: var(--light);
+    font-family: 'Outfit', sans-serif;
+    z-index: 100;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+    padding: 4px 14px;
+    border-radius: 10px;
+  }
+
+  /* 印刷用CSS */
+  @media print {
+    @page {
+      size: landscape;
+      margin: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: white;
+    }
+    .slide {
+      display: flex !important;
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      page-break-after: always;
+      break-after: page;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .slide:last-child {
+      page-break-after: avoid;
+    }
+    .nav-btn, .slide-num {
+      display: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Slide 1 -->
+<div class="slide s1 active" data-slide="1">
+  <div class="card">
+    <h1>説明会開始まで<br><span>しばらくお待ちください</span></h1>
+    <p class="note">マイクはオフ &#x2502; カメラは自由です</p>
+    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide s2" data-slide="2">
+  <div class="content">
+    <p class="sub-title">学生保険委員会</p>
+    <div class="logo">GAPPO</div>
+    <p class="ruby">がっぽ</p>
+    <div class="divider"></div>
+    <p class="year">2026年度  新入生向け説明会</p>
+  </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide s3" data-slide="3">
+  <div class="section-header"><div class="bar"></div><h2>GAPPOとは</h2></div>
+  <div class="about-cards">
+    <div class="about-card">
+      <div class="about-icon">?</div>
+      <div class="about-title">GAPPOって何？</div>
+      <div class="about-text">皆さんが入学時に支払った<br><strong>互助会費</strong>を活用して活動する<br>立正大学の学生保険委員会です</div>
+    </div>
+    <div class="about-card">
+      <div class="about-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <div class="about-title">互助会費って？</div>
+      <div class="about-text">入学時に<strong>全員が加入</strong>する制度。<br>医療給付や見舞金に使われるほか、<br>使わなくても<strong>還元給付</strong>として<br>皆さんに届く仕組みです</div>
+    </div>
+    <div class="about-card">
+      <div class="about-icon"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="about-title">誰のための活動？</div>
+      <div class="about-text">互助会員の声を届け<br>立正大学に通う<strong>すべての学生</strong>の<br>学生生活をより豊かにする活動です</div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide s4" data-slide="4">
+  <div class="section-header"><div class="bar"></div><h2>活動について</h2></div>
+  <div class="two-col">
+    <div class="activity-card">
+      <div class="tag">イベント</div>
+      <p class="desc">月に1回、健康に関するイベントを開催。<br>企画も一から自分たちで行います。</p>
+      <div class="photo-area"><img src="event-photo.jpg" alt="イベントの様子" style="width:100%;height:100%;object-fit:cover;border-radius:14px;"></div>
+    </div>
+    <div class="activity-card">
+      <div class="tag">定例会</div>
+      <p class="desc">月に1回、委員同士の交流の場。<br>学部・学年を超えた繋がりが持てます。</p>
+      <div class="photo-area"><img src="teireikai-photo.png" alt="定例会の様子" style="width:100%;height:100%;object-fit:cover;border-radius:14px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide s5" data-slide="5">
+  <div class="section-header"><div class="bar"></div><h2>年間スケジュール</h2></div>
+  <div class="schedule-grid">
+    <div class="schedule-row"><div class="month">4月</div><div class="event">新入生勧誘活動・互助会周知活動</div></div>
+    <div class="schedule-row"><div class="month">10月</div><div class="event">GAPPOランチ</div></div>
+    <div class="schedule-row"><div class="month">5月</div><div class="event">献血活動・GAPPOランチ</div></div>
+    <div class="schedule-row"><div class="month">11月</div><div class="event">献血活動・橘花祭</div></div>
+    <div class="schedule-row"><div class="month">6月</div><div class="event">睡眠サポート活動</div></div>
+    <div class="schedule-row"><div class="month">12月</div><div class="event">歯科検診</div></div>
+    <div class="schedule-row"><div class="month">7月</div><div class="event">熱中症対策活動</div></div>
+    <div class="schedule-row"><div class="month">1月</div><div class="event">互助会周知活動</div></div>
+    <div class="schedule-row"><div class="month">8月</div><div class="event">夏季研修</div></div>
+    <div class="schedule-row"><div class="month">2月</div><div class="event">互助会周知活動・冬季研修</div></div>
+    <div class="schedule-row"><div class="month">9月</div><div class="event">後期企画準備（カゴメさんコラボ予定）</div></div>
+    <div class="schedule-row"><div class="month">3月</div><div class="event">互助会周知活動・新入生勧誘活動</div></div>
+  </div>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide s6" data-slide="6">
+  <div class="section-header"><div class="bar"></div><h2>メンバー構成</h2></div>
+  <div class="member-layout">
+    <div class="member-left">
+      <div class="num">8<span class="mei">名</span><span class="sub-label">で活動中！</span></div>
+    </div>
+    <div class="dept-list">
+      <div class="dept-row">
+        <div class="dept-name">心理学部</div>
+        <div class="dept-sub">対人・社会心理学科</div>
+        <div class="dept-count">3<span class="dept-unit">名</span></div>
+      </div>
+      <div class="dept-row">
+        <div class="dept-name">経営学部</div>
+        <div class="dept-sub">経営学科</div>
+        <div class="dept-count">3<span class="dept-unit">名</span></div>
+      </div>
+      <div class="dept-row">
+        <div class="dept-name">文学部</div>
+        <div class="dept-sub"></div>
+        <div class="dept-count">1<span class="dept-unit">名</span></div>
+      </div>
+      <div class="dept-row">
+        <div class="dept-name">法学部</div>
+        <div class="dept-sub">法学科</div>
+        <div class="dept-count">1<span class="dept-unit">名</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide s7" data-slide="7">
+  <div class="section-header"><div class="bar"></div><h2>GAPPOの魅力</h2></div>
+  <div class="merit-list">
+    <div class="merit-item"><div class="num">1</div><div class="merit-text">学部を超えた友達・先輩ができる</div></div>
+    <div class="merit-item"><div class="num">2</div><div class="merit-text">大学公認で安心して活動できる</div></div>
+    <div class="merit-item"><div class="num">3</div><div class="merit-text">昼休みメイン　バイトやサークルと両立OK</div></div>
+    <div class="merit-item"><div class="num">4</div><div class="merit-text">企画・広報・財務　実践スキルが身につく</div></div>
+    <div class="merit-item"><div class="num">5</div><div class="merit-text">就活のガクチカに直結する経験ができる</div></div>
+  </div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide s8" data-slide="8">
+  <div class="header-row">
+    <div class="section-header"><div class="bar"></div><h2>入会方法</h2></div>
+    <div class="deadline-badge">締め切り：4月中</div>
+  </div>
+  <div class="steps">
+    <div class="step-card step1">
+      <div class="step-badge">STEP 1</div>
+      <div class="step-content">
+        <h3>SNSのDMを送信</h3>
+        <p>InstagramまたはXのDMで「入会希望」と送ってください</p>
+      </div>
+    </div>
+    <div class="step-arrow">&#9660;</div>
+    <div class="step-card step2">
+      <div class="step-badge">STEP 2</div>
+      <div class="step-content">
+        <h3>入会届を記入</h3>
+        <p>届いたForms（入会届）のリンクから記入して送信</p>
+      </div>
+    </div>
+    <div class="step-arrow">&#9660;</div>
+    <div class="step-card step3">
+      <div class="step-badge">STEP 3</div>
+      <div class="step-content">
+        <h3>LINEを追加</h3>
+        <p>送られてくるQRコードから委員長のLINEを追加して、連絡をお待ちください</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 9 -->
+<div class="slide s9" data-slide="9">
+  <div class="end-content">
+    <h1>ありがとうございました！</h1>
+    <p class="end-sub">ぜひGAPPOに来てください</p>
+    <div class="contact-card">
+      <h3>質問はいつでもどこからでもOK！</h3>
+      <div class="contact-row"><div class="contact-label">Instagram</div> @ris.sngw_gappo</div>
+      <div class="contact-row"><div class="contact-label">X</div> @rissho_gappo</div>
+      <div class="qr-area">
+        <div class="qr-box"><img src="x-qr.png" alt="X QR" style="width:80px;height:80px;border-radius:8px;object-fit:cover;"><span>X</span></div>
+        <div class="qr-box"><img src="insta-qr.png" alt="Instagram QR" style="width:80px;height:80px;border-radius:8px;object-fit:cover;"><span>Instagram</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prev()">&#9664;</button>
+  <button onclick="next()">&#9654;</button>
+</div>
+<div class="slide-counter"><span id="current">1</span> / <span id="total">9</span></div>
+
+<script>
+  let current = 1;
+  const total = 9;
+
+  function show(n) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.querySelector(`[data-slide="${n}"]`).classList.add('active');
+    document.getElementById('current').textContent = n;
+  }
+
+  function next() { if (current < total) { current++; show(current); } }
+  function prev() { if (current > 1) { current--; show(current); } }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prev(); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+</script>
+</body>
+</html>
